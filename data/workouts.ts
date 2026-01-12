@@ -89,7 +89,7 @@ export async function getWorkoutsByDate(date: Date) {
 
     // Sort sets by setNumber
     exercisesMap.forEach(exercise => {
-      exercise.sets.sort((a, b) => a.setNumber - b.setNumber);
+      exercise.sets.sort((a: any, b: any) => a.setNumber - b.setNumber);
     });
 
     return {
