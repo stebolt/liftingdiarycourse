@@ -9,6 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Documentation Files
 
 - **`docs/ui.md`**: UI coding standards (shadcn/ui components, date formatting, styling)
+- **`docs/data-fetching.md`**
 
 ### Required Workflow
 
