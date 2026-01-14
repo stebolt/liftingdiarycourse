@@ -9,7 +9,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Documentation Files
 
 - **`docs/ui.md`**: UI coding standards (shadcn/ui components, date formatting, styling)
-- **`docs/data-fetching.md`**
+- **`docs/data-fetching.md`**: Data fetching standards (server components, security)
+- **`docs/data-mutations.md`**: Data mutation standards (server actions, Zod validation, helper functions)
+- **`docs/auth.md`**:
 
 ### Required Workflow
 
@@ -24,6 +26,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - Format dates with date-fns: `format(date, 'do MMM yyyy')`
   - Use Lucide icons
   - Use semantic Tailwind colors
+
+- **Fetching data?** → Read `docs/data-fetching.md` first
+  - Use server components ONLY
+  - Create helper functions in `src/data` directory
+  - Always filter by userId for security
+
+- **Creating/updating/deleting data?** → Read `docs/data-mutations.md` first
+  - Use server actions in `actions.ts` files
+  - Validate ALL inputs with Zod
+  - Call helper functions from `src/data` directory
+  - Never use FormData parameter types
 
 **Failure to consult documentation will result in code that violates project standards.**
 
@@ -59,12 +72,15 @@ npm run lint
 - **Fonts**: Geist and Geist Mono (from next/font/google)
 - **Authentication**: Clerk (latest version via @clerk/nextjs)
 - **Database**: Drizzle ORM with Neon PostgreSQL
+- **Validation**: Zod (for all server action input validation)
 - **Linting**: ESLint with Next.js config
 
 ## Project Structure
 
 - **`docs/`**: ⚠️ **PROJECT STANDARDS AND GUIDELINES** (ALWAYS READ FIRST)
   - `ui.md`: UI coding standards (shadcn/ui only, date formatting, styling)
+  - `data-fetching.md`: Data fetching standards (server components, security)
+  - `data-mutations.md`: Data mutation standards (server actions, Zod validation)
 - **`app/`**: Next.js App Router directory
   - `layout.tsx`: Root layout with font configuration and metadata
   - `page.tsx`: Home page component
@@ -74,11 +90,11 @@ npm run lint
 - **`lib/`**: Utility functions
   - `utils.ts`: cn() helper for class merging
   - `types/`: TypeScript type definitions
-  - `actions/`: Server actions
+- **`src/data/`**: Database helper functions for queries and mutations
+  - `[feature].ts`: Helper functions that wrap Drizzle ORM calls
 - **`src/db/`**: Database layer
   - `schema.ts`: Drizzle ORM schema definitions
   - `index.ts`: Database connection
-  - `queries.ts`: Database query functions
 - **`public/`**: Static assets (SVG files)
 - **Configuration files**:
   - `next.config.ts`: Next.js configuration (currently minimal)
@@ -174,7 +190,7 @@ The application uses Drizzle ORM with Neon PostgreSQL. Schema is defined in `src
 3. **workout_exercises** - Junction table linking workouts to exercises
 4. **sets** - Individual sets (weight, reps, RPE, isBodyweight)
 
-All database queries should be placed in `src/db/queries.ts`.
+All database queries and mutations should be placed in helper functions in the `src/data/` directory (see `docs/data-fetching.md` and `docs/data-mutations.md`).
 
 ## Code Generation Checklist
 
@@ -186,6 +202,15 @@ Before generating any code, ensure you:
   - [ ] Format dates with date-fns: `format(date, 'do MMM yyyy')`
   - [ ] Use Lucide icons
   - [ ] Use semantic Tailwind colors
+- [ ] **Follow data fetching standards** from `docs/data-fetching.md`:
+  - [ ] Use server components ONLY for data fetching
+  - [ ] Create helper functions in `src/data` directory
+  - [ ] Always filter by userId for security
+- [ ] **Follow data mutation standards** from `docs/data-mutations.md`:
+  - [ ] Use server actions in colocated `actions.ts` files
+  - [ ] Validate ALL inputs with Zod
+  - [ ] Call helper functions from `src/data` directory
+  - [ ] Use typed parameters (NOT FormData)
 - [ ] **Follow TypeScript strict mode** conventions
 - [ ] **Use path aliases** (`@/*`) for imports
 - [ ] **Check existing patterns** in the codebase before creating new patterns

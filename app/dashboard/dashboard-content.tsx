@@ -73,7 +73,7 @@ export default function DashboardContent({ workouts, selectedDate, workoutDates 
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="container mx-auto px-4 py-8 max-w-4xl" suppressHydrationWarning>
       {/* Header Section */}
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold">Workout Dashboard</h1>
@@ -104,7 +104,7 @@ export default function DashboardContent({ workouts, selectedDate, workoutDates 
           </Popover>
 
           {/* New Workout Button */}
-          <Button>
+          <Button onClick={() => router.push(`/dashboard/workout/new?date=${formatDateForDb(selectedDate)}`)}>
             <Plus className="h-4 w-4 mr-2" />
             New Workout
           </Button>
