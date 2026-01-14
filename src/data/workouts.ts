@@ -16,6 +16,7 @@ export async function createWorkout(data: {
     .insert(workouts)
     .values({
       ...data,
+      date: data.date.toISOString().split("T")[0],
       userId,
     })
     .returning();
@@ -62,9 +63,24 @@ export async function updateWorkout(
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 
+  const updateData: {
+    name?: string;
+    date?: string;
+    durationMinutes?: number;
+    notes?: string;
+  } = {
+    name: data.name,
+    durationMinutes: data.durationMinutes,
+    notes: data.notes,
+  };
+
+  if (data.date) {
+    updateData.date = data.date.toISOString().split("T")[0];
+  }
+
   const [workout] = await db
     .update(workouts)
-    .set(data)
+    .set(updateData)
     .where(and(eq(workouts.id, workoutId), eq(workouts.userId, userId)))
     .returning();
 

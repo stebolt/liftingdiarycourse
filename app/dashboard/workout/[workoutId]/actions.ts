@@ -40,7 +40,7 @@ export async function updateWorkoutAction(
     return { success: true, data: workout };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { success: false, error: error.errors[0].message };
+      return { success: false, error: error.issues[0].message };
     }
     return { success: false, error: "Failed to update workout" };
   }
@@ -62,7 +62,7 @@ export async function deleteWorkoutAction(
     return { success: true, data: deleted };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { success: false, error: error.errors[0].message };
+      return { success: false, error: error.issues[0].message };
     }
     return { success: false, error: "Failed to delete workout" };
   }

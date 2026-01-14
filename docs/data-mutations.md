@@ -376,7 +376,7 @@ export async function actionWithParse(input: unknown) {
     return { success: true, data: result };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { success: false, error: error.errors[0].message };
+      return { success: false, error: error.issues[0].message };
     }
     return { success: false, error: "An unexpected error occurred" };
   }
@@ -389,7 +389,7 @@ export async function actionWithSafeParse(input: unknown) {
   if (!result.success) {
     return {
       success: false,
-      error: result.error.errors[0].message,
+      error: result.error.issues[0].message,
       errors: result.error.flatten(),
     };
   }
@@ -559,7 +559,7 @@ export async function createWorkoutAction(input: unknown) {
     return { success: true, data: workout }; // ✅ Return success, let client handle navigation
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { success: false, error: error.errors[0].message };
+      return { success: false, error: error.issues[0].message };
     }
     return { success: false, error: "Failed to create workout" };
   }
@@ -721,7 +721,7 @@ export async function createWorkoutAction(input: z.infer<typeof createWorkoutSch
     return { success: true, data: workout };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { success: false, error: error.errors[0].message };
+      return { success: false, error: error.issues[0].message };
     }
     return { success: false, error: "Failed to create workout" };
   }
@@ -743,7 +743,7 @@ export async function updateWorkoutAction(input: z.infer<typeof updateWorkoutSch
     return { success: true, data: workout };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { success: false, error: error.errors[0].message };
+      return { success: false, error: error.issues[0].message };
     }
     return { success: false, error: "Failed to update workout" };
   }
@@ -763,7 +763,7 @@ export async function deleteWorkoutAction(input: z.infer<typeof deleteWorkoutSch
     redirect("/workouts");
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { success: false, error: error.errors[0].message };
+      return { success: false, error: error.issues[0].message };
     }
     return { success: false, error: "Failed to delete workout" };
   }
@@ -960,7 +960,7 @@ export async function myAction(input: z.infer<typeof schema>) {
     return { success: true, data: result };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { success: false, error: error.errors[0].message };
+      return { success: false, error: error.issues[0].message };
     }
     return { success: false, error: "Failed" };
   }
