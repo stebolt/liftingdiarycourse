@@ -1,5 +1,6 @@
 import { getWorkoutsByDate, getWorkoutDatesForMonth } from '@/data/workouts';
 import { parseDateFromDb } from '@/lib/date-utils';
+import { currentUser } from '@clerk/nextjs/server';
 import DashboardContent from './dashboard-content';
 
 type PageProps = {
@@ -23,11 +24,16 @@ export default async function DashboardPage({ searchParams }: PageProps) {
     selectedDate.getMonth()
   );
 
+  // Fetch user's first name from Clerk (follows auth.md standards)
+  const user = await currentUser();
+  const userFirstName = user?.firstName || 'Your';
+
   return (
     <DashboardContent
       workouts={workouts}
       selectedDate={selectedDate}
       workoutDates={workoutDates}
+      userFirstName={userFirstName}
     />
   );
 }
