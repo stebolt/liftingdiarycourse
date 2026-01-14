@@ -72,6 +72,11 @@ export default function DashboardContent({ workouts, selectedDate, workoutDates 
     }
   };
 
+  const handleTodayClick = () => {
+    // Navigate to today's date by removing the date parameter (defaults to today)
+    router.push('/dashboard');
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl" suppressHydrationWarning>
       {/* Header Section */}
@@ -102,6 +107,11 @@ export default function DashboardContent({ workouts, selectedDate, workoutDates 
               />
             </PopoverContent>
           </Popover>
+
+          {/* Today Button */}
+          <Button variant="outline" onClick={handleTodayClick}>
+            Today
+          </Button>
 
           {/* New Workout Button */}
           <Button onClick={() => router.push(`/dashboard/workout/new?date=${formatDateForDb(selectedDate)}`)}>
