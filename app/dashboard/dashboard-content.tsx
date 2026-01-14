@@ -52,9 +52,10 @@ type DashboardContentProps = {
   workouts: Workout[];
   selectedDate: Date;
   workoutDates: Date[];
+  userFirstName: string;
 };
 
-export default function DashboardContent({ workouts, selectedDate, workoutDates }: DashboardContentProps) {
+export default function DashboardContent({ workouts, selectedDate, workoutDates, userFirstName }: DashboardContentProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [openWorkoutId, setOpenWorkoutId] = useState<number | null>(null);
@@ -76,7 +77,7 @@ export default function DashboardContent({ workouts, selectedDate, workoutDates 
     <div className="container mx-auto px-4 py-8 max-w-4xl" suppressHydrationWarning>
       {/* Header Section */}
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-bold">Workout Dashboard</h1>
+        <h1 className="text-3xl font-bold">{userFirstName}&apos;s lifting diary</h1>
 
         <div className="flex items-center gap-4">
           {/* Date Picker */}
