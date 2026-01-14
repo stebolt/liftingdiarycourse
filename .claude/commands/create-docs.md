@@ -1,0 +1,1 @@
+Create a new documentation file at docs/$1.md to highlight the coding standards for this layer of the app. Specifically the coding standards need to highlight: x2

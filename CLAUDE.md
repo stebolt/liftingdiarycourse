@@ -11,7 +11,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **`docs/ui.md`**: UI coding standards (shadcn/ui components, date formatting, styling)
 - **`docs/data-fetching.md`**: Data fetching standards (server components, security)
 - **`docs/data-mutations.md`**: Data mutation standards (server actions, Zod validation, helper functions)
-- **`docs/auth.md`**:
+- **`docs/routing.md`**: Routing standards (protected routes, /dashboard structure, middleware)
+- **`docs/auth.md`**: Authentication standards
 
 ### Required Workflow
 
@@ -37,6 +38,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - Validate ALL inputs with Zod
   - Call helper functions from `src/data` directory
   - Never use FormData parameter types
+
+- **Adding new routes/pages?** → Read `docs/routing.md` first
+  - ALL routes must be under `/dashboard`
+  - Route protection handled by middleware
+  - Use `_components/` for route-specific components
+  - Colocate server actions in `actions.ts` files
 
 **Failure to consult documentation will result in code that violates project standards.**
 
@@ -81,6 +88,7 @@ npm run lint
   - `ui.md`: UI coding standards (shadcn/ui only, date formatting, styling)
   - `data-fetching.md`: Data fetching standards (server components, security)
   - `data-mutations.md`: Data mutation standards (server actions, Zod validation)
+  - `routing.md`: Routing standards (protected routes, /dashboard structure)
 - **`app/`**: Next.js App Router directory
   - `layout.tsx`: Root layout with font configuration and metadata
   - `page.tsx`: Home page component
@@ -211,6 +219,10 @@ Before generating any code, ensure you:
   - [ ] Validate ALL inputs with Zod
   - [ ] Call helper functions from `src/data` directory
   - [ ] Use typed parameters (NOT FormData)
+- [ ] **Follow routing standards** from `docs/routing.md`:
+  - [ ] All routes under `/dashboard`
+  - [ ] Route protection via middleware (not in pages)
+  - [ ] Use `_components/` for route-specific components
 - [ ] **Follow TypeScript strict mode** conventions
 - [ ] **Use path aliases** (`@/*`) for imports
 - [ ] **Check existing patterns** in the codebase before creating new patterns
